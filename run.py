@@ -15,12 +15,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
-
-SHEET = GSPREAD_CLIENT.open('love_sandwiches')
-
-
 words = SHEET.worksheet('wordlist')
-data = wordlist.get_all_values()
+data = words.get_all_values()
 print(data)
 
 
