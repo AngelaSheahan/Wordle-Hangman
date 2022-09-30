@@ -21,76 +21,89 @@ SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
 words = SHEET.worksheet("wordlist").get_all_values()
 
-print(words)
-
+""" Use list comprehension to convert list of lists from google sheet
+into list of strings"""
 words_string = [''.join(ele) for ele in words]
 
-print("The String of list is : " + str(words_string))
-
+# Use random() to generate a random word from list of words
 picked = random.choice(words_string)
-
-print(picked)
 
 print('The word has', len(picked), 'letters')
 
-# right = ['_'] * len(picked)
-# wrong = [ ]
+correct_guesses = ['_'] * len(picked)
 
-# def update():
-#     for i in right:
-#         print(i,  end=' ')
-#     print()
-# print('Let me think of a word')
+print(correct_guesses)
 
-# def wait():
-#     for i in range(5):
-#         print('.', end = '')
-#         sleep(.5)
-#     print()
+wrong_guesses = [ ]
 
-# wait()
+guess = input("Enter a letter: ")
 
-# update()
-# parts(len(wrong))
+def data_validation():
+   	if guess.isdigit():
+        print("enter a letter not a number")
+    elif: len(guess) > 1:
+    print("enter only 1 letter")
+    elif: guess == 0:
+    print(" enter a letter")
+    return guess
 
-# while True:
+data_validation(guess)
 
-#     print('==========================================')
+def update():
+    for i in right:
+        print(i,  end=' ')
+    print()
+print('Let me think of a word')
 
-#     guess = input('Guess a letter: ')
-#     print('Let me check')
-#     wait()
+def wait():
+    for i in range(5):
+        print('.', end = '')
+        sleep(.5)
+    print()
+
+wait()
+
+update()
+parts(len(wrong))
+
+while True:
+
+    print('==========================================')
+
+    guess = input('Guess a letter: ')
+    print('Let me check')
+    wait()
 
     
-#     if guess in picked:
-#         index = 0
-#         for i in picked:
-#             if i == guess:
-#                 right[index] = guess
-#             index +=1
-#         update()
+    if guess in picked:
+        index = 0
+        for i in picked:
+            if i == guess:
+                right[index] = guess
+            index +=1
+        update()
 
-#     else:
-#         if guess not in wrong:
-#             wrong.append(guess)
-#             parts(len(wrong))
+    else:
+        if guess not in wrong:
+            wrong.append(guess)
+            parts(len(wrong))
             
-#         else:
-#             print('You already picked that')
-#         print(wrong)
-#     if len(wrong) > 4:
-#         print('You loose')
-#         print('The word is:' , picked)
-#         break
+        else:
+            print('You already picked that')
+        print(wrong)
+    if len(wrong) > 4:
+        print('You loose')
+        print('The word is:' , picked)
+        break
 
-#     # if len(wrong) > 4:
-#     #     print('You loose')
-#     #     print('The word is: ', picked)
-#     #     break
+    if len(wrong) > 4:
+        print('You loose')
+        print('The word is: ', picked)
+        break
 
-#     if '_' not in right:
-#         print('You win')
-#         break
+    if '_' not in right:
+        print('You win')
+        break
 
 
 
