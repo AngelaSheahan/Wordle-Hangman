@@ -19,69 +19,78 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
-words = ['cacao', 'zesty', 'lance', 'nymph']
+words = SHEET.worksheet("wordlist").get_all_values()
 
-picked = random.choice(words)
+print(words)
+
+words_string = [''.join(ele) for ele in words]
+
+print("The String of list is : " + str(words_string))
+
+picked = random.choice(words_string)
+
+print(picked)
+
 print('The word has', len(picked), 'letters')
 
-right = ['_'] * len(picked)
-wrong = [ ]
+# right = ['_'] * len(picked)
+# wrong = [ ]
 
-def update():
-    for i in right:
-        print(i,  end=' ')
-    print()
-print('Let me think of a word')
+# def update():
+#     for i in right:
+#         print(i,  end=' ')
+#     print()
+# print('Let me think of a word')
 
-def wait():
-    for i in range(5):
-        print('.', end = '')
-        sleep(.5)
-    print()
+# def wait():
+#     for i in range(5):
+#         print('.', end = '')
+#         sleep(.5)
+#     print()
 
-wait()
+# wait()
 
-update()
-parts(len(wrong))
+# update()
+# parts(len(wrong))
 
-while True:
+# while True:
 
-    print('==========================================')
+#     print('==========================================')
 
-    guess = input('Guess a letter: ')
-    print('Let me check')
-    wait()
+#     guess = input('Guess a letter: ')
+#     print('Let me check')
+#     wait()
 
     
-    if guess in picked:
-        index = 0
-        for i in picked:
-            if i == guess:
-                right[index] = guess
-            index +=1
-        update()
+#     if guess in picked:
+#         index = 0
+#         for i in picked:
+#             if i == guess:
+#                 right[index] = guess
+#             index +=1
+#         update()
 
-    else:
-        if guess not in wrong:
-            wrong.append(guess)
-            parts(len(wrong))
+#     else:
+#         if guess not in wrong:
+#             wrong.append(guess)
+#             parts(len(wrong))
             
-        else:
-            print('You already picked that')
-        print(wrong)
-    if len(wrong) > 4:
-        print('You loose')
-        print('The word is:' , picked)
-        break
+#         else:
+#             print('You already picked that')
+#         print(wrong)
+#     if len(wrong) > 4:
+#         print('You loose')
+#         print('The word is:' , picked)
+#         break
 
-    # if len(wrong) > 4:
-    #     print('You loose')
-    #     print('The word is: ', picked)
-    #     break
+#     # if len(wrong) > 4:
+#     #     print('You loose')
+#     #     print('The word is: ', picked)
+#     #     break
 
-    if '_' not in right:
-        print('You win')
-        break
+#     if '_' not in right:
+#         print('You win')
+#         break
 
 
 
