@@ -3,7 +3,7 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 import gspread
 import random
-from hangman_parts import parts
+from hangman_parts import bodyParts
 from time import sleep
 
 from google.oauth2.service_account import Credentials
@@ -28,79 +28,136 @@ words_string = [''.join(ele) for ele in words]
 # Use random() to generate a random word from list of words
 picked = random.choice(words_string)
 
-# Print to terminal the length of the word pulled from my google sheet
-print('The word has', len(picked), 'letters')
+print('The word has' , len(picked), 'letters')
 
-correct_guesses = ['_'] * len(picked)
-
-print(correct_guesses)
-
-wrong_guesses = [ ]
-
-guess = input("Enter a letter: ")
-
-def input_validation(guess):
-        if guess.isdigit():
-            print("enter a letter not a number")
-        elif len(guess) > 1:
-            print("enter only 1 letter")
-        elif len(guess) == "":
-            print(" enter a letter")
-        else:
-            return guess
-
-input_validation(guess)
-            
+correct = ['_'] * len(picked)
+incorrect = []
 
 def update():
-    for i in correct_guesses:
-        print(i,  end=' ')
+    for x in correct:
+        print(x, end=' ')
     print()
-print('Let me think of a word')
 
 def wait():
     for i in range(5):
-        print('.', end = '')
+        print('.', end ="")
         sleep(.5)
     print()
+print("Let me check")
 
 wait()
 
 update()
+bodyParts(len(incorrect))
 
-parts(len(wrong_guesses))
+    
 
 while True:
 
-    print('==========================================')
+    print('############################################')
+    guess = input("Guess one letter: ")[0]
 
-    wait()
-  
+    if guess.isnumeric():
+        print("Enter a letter not a number: ")
+        continue
     if guess in picked:
         index = 0
-        for i in picked:
-            if i == guess:
-                correct_guesses[index] = guess
+        for x in picked:
+            if x == guess:
+                correct[index] = guess
             index +=1
         update()
-
     else:
-        if guess not in wrong_guesses:
-            wrong_guesses.append(guess)
-            parts(len(wrong_guesses))
-            
+        if guess not in incorrect:
+            incorrect.append(guess)
+            bodyParts(len(incorrect))
         else:
-            print('You already picked that')
-        print(wrong_guesses)
-
-    if len(wrong_guesses) > 4:
-        print('You loose')
-        print('The word is: ', picked)
+            print("You have already guessed that")
+        print(incorrect)
+        if len(incorrect) > 4:
+            print("You lose")
+            print("The word was" , picked)
+            break
+    if '_' not in correct:
+        print("You win")
         break
 
-    if '_' not in correct_guesses:
-        print('You win')
-        break
+
+
+
+# Print to terminal the length of the word pulled from my google sheet
+# print('The word has', len(picked), 'letters')
+
+# correct_guesses = ['_'] * len(picked)
+
+# print(correct_guesses)
+
+# wrong_guesses = [ ]
+
+# guess = input("Enter a letter: ")
+
+# def input_validation(guess):
+#         if guess.isdigit():
+#             print("enter a letter not a number")
+#         elif len(guess) > 1:
+#             print("enter only 1 letter")
+#         elif len(guess) == "":
+#             print(" enter a letter")
+#         else:
+#             return guess
+
+# input_validation(guess)
+            
+
+# def update():
+#     for i in correct_guesses:
+#         print(i,  end=' ')
+#     print()
+# print('Let me think of a word')
+
+# def wait():
+#     for i in range(5):
+#         print('.', end = '')
+#         sleep(.5)
+#     print()
+
+# wait()
+
+# update()
+
+# parts(len(wrong_guesses))
+
+# while True:
+
+#     print('==========================================')
+
+#     wait()
+  
+#     if guess in picked:
+#         index = 0
+#         for i in picked:
+#             if i == guess:
+#                 correct_guesses[index] = guess
+#             index +=1
+#         update()
+
+#     else:
+#         if guess not in wrong_guesses:
+#             wrong_guesses.append(guess)
+#             parts(len(wrong_guesses))
+            
+#         else:
+#             print('You already picked that')
+#         print(wrong_guesses)
+
+#     if len(wrong_guesses) > 4:
+#         print('You loose')
+#         print('The word is: ', picked)
+#         break
+
+#     if '_' not in correct_guesses:
+#         print('You win')
+#         break
 
 
 

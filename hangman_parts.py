@@ -1,4 +1,4 @@
-def parts(x):
+def bodyParts(x):
     if x == 0:
         print('    ', '-------------')
         print('    ', '|           |')
@@ -19,7 +19,7 @@ def parts(x):
         print('    ', '-------------')
         print('    ', '|           |')
         print('    ', '|           O')
-        print('    ', '|          -|-')
+        print('    ', '|           |')
         print('    ', '|            ')
         print('    ', '|            ')
         print('-------------------')
@@ -27,7 +27,7 @@ def parts(x):
         print('    ', '-------------')
         print('    ', '|           |')
         print('    ', '|           O')
-        print('    ', '|          -|-')
+        print('    ', '|      -----|----')
         print('    ', '|           |')
         print('    ', '|            ')
         print('-------------------')
@@ -35,9 +35,8 @@ def parts(x):
         print('    ', '-------------')
         print('    ', '|           |')
         print('    ', '|           O')
-        print('    ', '|          -|-')
+        print('    ', '|      -----|----')
         print('    ', '|           |')
-        print('    ', '|          / \ ')
+        print('    ', '|         // \\')
         print('-------------------')
     
-
