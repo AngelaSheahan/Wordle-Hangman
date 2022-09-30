@@ -28,6 +28,7 @@ words_string = [''.join(ele) for ele in words]
 # Use random() to generate a random word from list of words
 picked = random.choice(words_string)
 
+# Print to terminal the length of the word pulled from my google sheet
 print('The word has', len(picked), 'letters')
 
 correct_guesses = ['_'] * len(picked)
@@ -36,24 +37,23 @@ print(correct_guesses)
 
 wrong_guesses = [ ]
 
-# guess = input("Enter a letter: ")
+guess = input("Enter a letter: ")
 
-def data_validation(guess):
-    guess = input("Enter a letter: ")
-    for x in guess:
+def input_validation(guess):
         if guess.isdigit():
             print("enter a letter not a number")
         elif len(guess) > 1:
             print("enter only 1 letter")
-        elif guess == 0:
+        elif len(guess) == "":
             print(" enter a letter")
         else:
             return guess
 
-data_validation(guess)
+input_validation(guess)
+            
 
 def update():
-    for i in right:
+    for i in correct_guesses:
         print(i,  end=' ')
     print()
 print('Let me think of a word')
@@ -67,44 +67,38 @@ def wait():
 wait()
 
 update()
-parts(len(wrong))
+
+parts(len(wrong_guesses))
 
 while True:
 
     print('==========================================')
 
-    guess = input('Guess a letter: ')
-    print('Let me check')
     wait()
-
-    
+  
     if guess in picked:
         index = 0
         for i in picked:
             if i == guess:
-                right[index] = guess
+                correct_guesses[index] = guess
             index +=1
         update()
 
     else:
-        if guess not in wrong:
-            wrong.append(guess)
-            parts(len(wrong))
+        if guess not in wrong_guesses:
+            wrong_guesses.append(guess)
+            parts(len(wrong_guesses))
             
         else:
             print('You already picked that')
-        print(wrong)
-    if len(wrong) > 4:
-        print('You loose')
-        print('The word is:' , picked)
-        break
+        print(wrong_guesses)
 
-    if len(wrong) > 4:
+    if len(wrong_guesses) > 4:
         print('You loose')
         print('The word is: ', picked)
         break
 
-    if '_' not in right:
+    if '_' not in correct_guesses:
         print('You win')
         break
 
