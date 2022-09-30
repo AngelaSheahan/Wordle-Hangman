@@ -19,7 +19,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
-words = SHEET.worksheet("wordlist").get_all_values()
+words = SHEET.worksheet("wordlist").col_values(1)
+
 
 """ Use list comprehension to convert list of lists from google sheet
 into list of strings"""
@@ -160,49 +161,6 @@ while True:
 #         break
 
 
-
-
-
-
-# words = SHEET.worksheet('wordlist')
-# data = words.get_all_values()
-# print(data)
-
-# The secret word the player is trying to guess
-# secretWord = "cacao"
-# lettersGuessed = ""
-# failureCount = 5
-
-# while failureCount > 0:
-#     # Get the guessed letter from the player
-#     guess = input("Enter a letter: ")
-
-#     if guess in secretWord:
-#         # Player guessed a correct letter!
-#         print(f"There is one or more {guess} in the secret word.")
-#     else:
-#         failureCount -= 1
-#         print(f"Incorrect. There are no {guess} in the secret word. You have {failureCount} attempts left")
-
-#     lettersGuessed = lettersGuessed + guess
-#     wrongLetterCount = 0
-
-#     for letter in secretWord:
-#         if letter in lettersGuessed:
-#             print(f"{letter}", end="")
-#         else:
-#             print(f"_", end="")
-
-#             wrongLetterCount += 1
-#     print("")
-
-# # no wrong letters, then the player won
-#     if wrongLetterCount == 0:
-#         print(f"Congratulations! The secret word was {secretWord}. You won!")
-#         break
-
-# else:
-#     print("Sorry you didn't win this time. Try again")
 
 
         
