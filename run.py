@@ -3,6 +3,9 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 import gspread
 import random
+from hangman_parts import parts
+from time import sleep
+
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -28,13 +31,27 @@ def update():
     for i in right:
         print(i,  end=' ')
     print()
+print('Let me think of a word')
+
+def wait():
+    for i in range(5):
+        print('.', end = '')
+        sleep(.5)
+    print()
+
+wait()
+
 update()
+parts(len(wrong))
 
 while True:
 
     print('==========================================')
 
     guess = input('Guess a letter: ')
+    print('Let me check')
+    wait()
+
     
     if guess in picked:
         index = 0
@@ -47,6 +64,8 @@ while True:
     else:
         if guess not in wrong:
             wrong.append(guess)
+            parts(len(wrong))
+            
         else:
             print('You already picked that')
         print(wrong)
