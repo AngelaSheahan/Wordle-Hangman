@@ -19,7 +19,9 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
-words = SHEET.worksheet("wordlist").col_values(1)
+words = SHEET.worksheet("wordlist").row_values(1)
+
+print(words)
 
 
 """ Use list comprehension to convert list of lists from google sheet
