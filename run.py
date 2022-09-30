@@ -36,16 +36,19 @@ print(correct_guesses)
 
 wrong_guesses = [ ]
 
-guess = input("Enter a letter: ")
+# guess = input("Enter a letter: ")
 
-def data_validation():
-   	if guess.isdigit():
-        print("enter a letter not a number")
-    elif: len(guess) > 1:
-    print("enter only 1 letter")
-    elif: guess == 0:
-    print(" enter a letter")
-    return guess
+def data_validation(guess):
+    guess = input("Enter a letter: ")
+    for x in guess:
+        if guess.isdigit():
+            print("enter a letter not a number")
+        elif len(guess) > 1:
+            print("enter only 1 letter")
+        elif guess == 0:
+            print(" enter a letter")
+        else:
+            return guess
 
 data_validation(guess)
 
