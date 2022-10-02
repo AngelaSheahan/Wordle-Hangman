@@ -19,17 +19,32 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
+game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
+    letters in length. You, the player, selects a Word Category. The game then\
+    randomly selects a word from this category for you to guess. Good Luck!" 
+
+print(game_intro)  
+
+game_rules = " 1. Select one of 6 categories.\
+    2. The game will randomly generate a word from your choosen category.\
+    3. Enter one letter at a time to try to guess this word.\
+    4. You have 4 attempts."
+
+print(game_rules)
+
+# All category headings appear in row 1 of spreadsheet
 words = SHEET.worksheet("wordlist").row_values(1)
 
-print(words)
-
-
-""" Use list comprehension to convert list of lists from google sheet
-into list of strings"""
+# Use list comprehension to convert list of lists from google sheet into list of strings"""
 words_string = [''.join(ele) for ele in words]
 
-# Use random() to generate a random word from list of words
-picked = random.choice(words_string)
+choice = input ("please select a category from the following list, " {words_string}. "Enter you choice here": )
+
+
+# Use random() to generate a random word from the choosen category of words.
+picked = random.choice(SHEET.worksheet.col_values.choice)
+
+print(picked)
 
 print('The word has' , len(picked), 'letters')
 
@@ -52,6 +67,10 @@ wait()
 
 update()
 bodyParts(len(incorrect))
+
+# function asking player if they wish to play a new game or exit game
+def new_game_exit():
+    
 
     
 
@@ -87,80 +106,6 @@ while True:
 
 
 
-
-# Print to terminal the length of the word pulled from my google sheet
-# print('The word has', len(picked), 'letters')
-
-# correct_guesses = ['_'] * len(picked)
-
-# print(correct_guesses)
-
-# wrong_guesses = [ ]
-
-# guess = input("Enter a letter: ")
-
-# def input_validation(guess):
-#         if guess.isdigit():
-#             print("enter a letter not a number")
-#         elif len(guess) > 1:
-#             print("enter only 1 letter")
-#         elif len(guess) == "":
-#             print(" enter a letter")
-#         else:
-#             return guess
-
-# input_validation(guess)
-            
-
-# def update():
-#     for i in correct_guesses:
-#         print(i,  end=' ')
-#     print()
-# print('Let me think of a word')
-
-# def wait():
-#     for i in range(5):
-#         print('.', end = '')
-#         sleep(.5)
-#     print()
-
-# wait()
-
-# update()
-
-# parts(len(wrong_guesses))
-
-# while True:
-
-#     print('==========================================')
-
-#     wait()
-  
-#     if guess in picked:
-#         index = 0
-#         for i in picked:
-#             if i == guess:
-#                 correct_guesses[index] = guess
-#             index +=1
-#         update()
-
-#     else:
-#         if guess not in wrong_guesses:
-#             wrong_guesses.append(guess)
-#             parts(len(wrong_guesses))
-            
-#         else:
-#             print('You already picked that')
-#         print(wrong_guesses)
-
-#     if len(wrong_guesses) > 4:
-#         print('You loose')
-#         print('The word is: ', picked)
-#         break
-
-#     if '_' not in correct_guesses:
-#         print('You win')
-#         break
 
 
 
