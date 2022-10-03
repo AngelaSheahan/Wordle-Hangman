@@ -47,63 +47,63 @@ picked = random.choice(SHEET.worksheet.col_values.choice)
 
 print(picked)
 
-# print('The word has' , len(picked), 'letters')
+print('The word has' , len(picked), 'letters')
 
-# correct = ['_'] * len(picked)
-# incorrect = []
+correct = ['_'] * len(picked)
+incorrect = []
 
-# def update():
-#     for x in correct:
-#         print(x, end=' ')
-#     print()
+def update():
+    for x in correct:
+        print(x, end=' ')
+    print()
 
-# def wait():
-#     for i in range(5):
-#         print('.', end ="")
-#         sleep(.5)
-#     print()
-# print("Let me check")
+def wait():
+    for i in range(5):
+        print('.', end ="")
+        sleep(.5)
+    print()
+print("Let me check")
 
-# wait()
+wait()
 
-# update()
-# bodyParts(len(incorrect))
+update()
+bodyParts(len(incorrect))
 
-# # function asking player if they wish to play a new game or exit game
+# function asking player if they wish to play a new game or exit game
 # def new_game_exit():
 
 
     
 
-# while True:
+while True:
 
-#     print('############################################')
-#     guess = input("Guess one letter: ")[0]
+    print('############################################')
+    guess = input("Guess one letter: ")[0]
 
-#     if guess.isnumeric():
-#         print("Enter a letter not a number: ")
-#         continue
-#     if guess in picked:
-#         index = 0
-#         for x in picked:
-#             if x == guess:
-#                 correct[index] = guess
-#             index +=1
-#         update()
-#     else:
-#         if guess not in incorrect:
-#             incorrect.append(guess)
-#             bodyParts(len(incorrect))
-#         else:
-#             print("You have already guessed that")
-#         print(incorrect)
-#         if len(incorrect) > 4:
-#             print("You lose")
-#             print("The word was" , picked)
-#             break
-#     if '_' not in correct:
-#         print("You win")
-#         break
+    if guess.isnumeric():
+        print("Enter a letter not a number: ")
+        continue
+    if guess in picked:
+        index = 0
+        for x in picked:
+            if x == guess:
+                correct[index] = guess
+            index +=1
+        update()
+    else:
+        if guess not in incorrect:
+            incorrect.append(guess)
+            bodyParts(len(incorrect))
+        else:
+            print("You have already guessed that")
+        print(incorrect)
+        if len(incorrect) > 4:
+            print("You lose")
+            print("The word was" , picked)
+            break
+    if '_' not in correct:
+        print("You win")
+        break
 
 
 
