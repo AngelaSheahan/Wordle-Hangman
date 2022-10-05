@@ -44,18 +44,18 @@ word_categories = [''.join(ele) for ele in words]
 
 print(word_categories)
 
-
-# Handling the player category choice
-choice = 1
+# 
+choice = 0
 while (choice < 7):
     choice = int(input("Enter your choice = "))
-    picked = random.choice(SHEET.worksheet.col_values.choice)
-    print(picked)
+    category = word_categories[choice - 1]
+    picked = SHEET.worksheet("wordlist").find(category)
+    random_word = random.choice(SHEET.worksheet.col_values(picked.col))
+    print(random_word)
+  
+    # print(picked)
     choice = choice + 1
-print("Choose Word Category 1, 2, 3, 4, 5 or 6")
-
-
- 
+# print("Choose Word Category 1, 2, 3, 4, 5 or 6")
 
 
 # # Use random() to generate a random word from the choosen category of words.
