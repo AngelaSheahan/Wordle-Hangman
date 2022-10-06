@@ -50,40 +50,37 @@ print(word_categories)
 """ Player selects one of 6 word categories from list of strings pulled from
 Wordle-Hangman google sheet """
 choice = 0
-def pick_category_word():
-# while choice <= 6:
+choice = int(input("Enter your choice = "))
+while (choice < 1 or choice >= 7):
+    print("This is not a valid category number")
     choice = int(input("Enter your choice = "))
-    if choice > 6:
-        print("This is not a valid category number")
-        choice = int(input("Enter your choice = "))
-    category = word_categories[choice - 1]
-    picked = SHEET.worksheet("wordlist").find(category).value
-    print("Your choice is: ",(picked))
-    word_list = wks.col_values(choice)
-    # print(word_list[1:])
-    random_word = random.choice(word_list[1:])
-    print('The word has' , len(random_word), 'letters')
-    return random_word
+category = word_categories[choice - 1]
+picked = SHEET.worksheet("wordlist").find(category).value
+print("Your choice is: ",(picked))
+word_list = wks.col_values(choice)
+random_word = random.choice(word_list[1:])
+print(random_word)
+print('The word has' , len(random_word), 'letters')
 
-pick_category_word()
+correct = ['_'] * len(random_word)
+incorrect = []
 
 def update():
-    correct = ['_'] * len(random_word)
-    incorrect = []
+  
     for x in correct:
         print(x, end=' ')
     print()
 
-def wait():
-    for i in range(5):
-        print('.', end ="")
-        sleep(.5)
-    print()
-print("Let me check")
+# def wait():
+#     for i in range(5):
+#         print('.', end ="")
+#         sleep(.5)
+#     print()
+# wait()
 
-wait()
 
-update(random_word)
+update()
+
 bodyParts(len(incorrect))
 
 # To Do - function asking player if they wish to play a new game or exit game.
@@ -115,7 +112,12 @@ def new_game_exit():
             if len(incorrect) > 4:
                 print("You lose")
                 print("The word was" , random_word)
+                print("Press Y - to play a new Game. Press N - to exit")
                 break
         if '_' not in correct:
             print("You win")
+            print("Press Y - to play a new Game. Press N - to exit")
             break
+
+new_game_exit()
+
