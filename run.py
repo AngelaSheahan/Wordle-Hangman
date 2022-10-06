@@ -19,20 +19,21 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
-# game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
-#     letters in length. You, the player, selects a Word Category. The game then\
-#     randomly selects a word from your chosen category. You then guess what this \
-#     letter is; one letter at a time. Good Luck!" 
+# Wordle-Hangman game introduction
+game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
+    letters in length. You, the player, selects a Word Category. The game then\
+    randomly selects a word from your chosen category. You then guess what this \
+    letter is; 1 letter at a time. Good Luck!" 
 
-# print(game_intro)  
+print(game_intro)  
 
+# Display game rules
+game_rules = " 1. Select one of 6 categories.\
+    2. The game will randomly generate a word from your choosen category.\
+    3. Enter one letter at a time to try to guess this word.\
+    4. You have 4 attempts."\
 
-# game_rules = " 1. Select one of 6 categories.\
-#     2. The game will randomly generate a word from your choosen category.\
-#     3. Enter one letter at a time to try to guess this word.\
-#     4. You have 4 attempts."\
-
-# print(game_rules)
+print(game_rules)
 
 print("Please see list of word categories below:")
 
@@ -45,86 +46,76 @@ word_categories = [''.join(ele) for ele in words]
 
 print(word_categories)
 
-""" Player selects one of six word categories from list of strings pulled from
-Wordle-Hangman google sheet """
 
+""" Player selects one of 6 word categories from list of strings pulled from
+Wordle-Hangman google sheet """
 choice = 0
-while (choice < 6):
+def pick_category_word():
+# while choice <= 6:
     choice = int(input("Enter your choice = "))
+    if choice > 6:
+        print("This is not a valid category number")
+        choice = int(input("Enter your choice = "))
     category = word_categories[choice - 1]
     picked = SHEET.worksheet("wordlist").find(category).value
-    print(picked)
+    print("Your choice is: ",(picked))
     word_list = wks.col_values(choice)
-    random_word = random.choice(word_list)
-    choice = choice + 1
-    print(random_word)
-    # print(random_word)
+    # print(word_list[1:])
+    random_word = random.choice(word_list[1:])
+    print('The word has' , len(random_word), 'letters')
+    return random_word
 
-    #         print("This is not a valid category number: ")
+pick_category_word()
 
+def update():
+    correct = ['_'] * len(random_word)
+    incorrect = []
+    for x in correct:
+        print(x, end=' ')
+    print()
 
-  
-    # print(picked)
-    # choice = choice + 1
-# print("Choose Word Category 1, 2, 3, 4, 5 or 6")
+def wait():
+    for i in range(5):
+        print('.', end ="")
+        sleep(.5)
+    print()
+print("Let me check")
 
+wait()
 
-# # Use random() to generate a random word from the choosen category of words.
-# picked = random.choice(SHEET.worksheet.col_values.choice)
+update(random_word)
+bodyParts(len(incorrect))
 
-# print(picked)
+# To Do - function asking player if they wish to play a new game or exit game.
 
-# print('The word has' , len(picked), 'letters')
+def new_game_exit():
 
-# correct = ['_'] * len(picked)
-# incorrect = []
+    while True: 
 
-# def update():
-#     for x in correct:
-#         print(x, end=' ')
-#     print()
+        print('############################################')
+        guess = input("Guess one letter: ")[0]
 
-# def wait():
-#     for i in range(5):
-#         print('.', end ="")
-#         sleep(.5)
-#     print()
-# print("Let me check")
-
-# wait()
-
-# update()
-# bodyParts(len(incorrect))
-
-# # function asking player if they wish to play a new game or exit game
-# # def new_game_exit():
-
-# while True:
-
-#     print('############################################')
-#     guess = input("Guess one letter: ")[0]
-
-#     if guess.isnumeric():
-#         print("Enter a letter not a number: ")
-#         continue
-#     if guess in picked:
-#         index = 0
-#         for x in picked:
-#             if x == guess:
-#                 correct[index] = guess
-#             index +=1
-#         update()
-#     else:
-#         if guess not in incorrect:
-#             incorrect.append(guess)
-#             bodyParts(len(incorrect))
-#         else:
-#             print("You have already guessed that")
-#         print(incorrect)
-#         if len(incorrect) > 4:
-#             print("You lose")
-#             print("The word was" , picked)
-#             break
-#     if '_' not in correct:
-#         print("You win")
-#         break
+        if guess.isnumeric():
+            print("Enter a letter not a number: ")
+            continue
+        if guess in random_word:
+            index = 0
+            for x in random_word:
+                if x == guess:
+                    correct[index] = guess
+                index +=1
+            update()
+        else:
+            if guess not in incorrect:
+                incorrect.append(guess)
+                bodyParts(len(incorrect))
+            else:
+                print("You have already guessed that")
+            print(incorrect)
+            if len(incorrect) > 4:
+                print("You lose")
+                print("The word was" , random_word)
+                break
+        if '_' not in correct:
+            print("You win")
+            break
