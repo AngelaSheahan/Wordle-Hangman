@@ -19,42 +19,53 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
-game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
-    letters in length. You, the player, selects a Word Category. The game then\
-    randomly selects a word from your chosen category. You then guess what this \
-    letter is; one letter at a time. Good Luck!" 
+# game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
+#     letters in length. You, the player, selects a Word Category. The game then\
+#     randomly selects a word from your chosen category. You then guess what this \
+#     letter is; one letter at a time. Good Luck!" 
 
-print(game_intro)  
+# print(game_intro)  
 
 
-game_rules = " 1. Select one of 6 categories.\
-    2. The game will randomly generate a word from your choosen category.\
-    3. Enter one letter at a time to try to guess this word.\
-    4. You have 4 attempts."\
+# game_rules = " 1. Select one of 6 categories.\
+#     2. The game will randomly generate a word from your choosen category.\
+#     3. Enter one letter at a time to try to guess this word.\
+#     4. You have 4 attempts."\
 
-print(game_rules)
+# print(game_rules)
 
 print("Please see list of word categories below:")
 
 # All category headings appear in row 1 of spreadsheet
-words = SHEET.worksheet("wordlist").row_values(1)
+wks = SHEET.worksheet("wordlist")
+words = wks.row_values(1)
 
 # Use list comprehension to convert list of lists from google sheet into list of strings"""
 word_categories = [''.join(ele) for ele in words]
 
 print(word_categories)
 
-# 
+""" Player selects one of six word categories from list of strings pulled from
+Wordle-Hangman google sheet """
+
 choice = 0
-while (choice < 7):
+while (choice < 6):
     choice = int(input("Enter your choice = "))
     category = word_categories[choice - 1]
-    picked = SHEET.worksheet("wordlist").find(category)
-    random_word = random.choice(SHEET.worksheet.col_values(picked.col))
+    picked = SHEET.worksheet("wordlist").find(category).value
+    print(picked)
+    word_list = wks.col_values(choice)
+    random_word = random.choice(word_list)
+    choice = choice + 1
     print(random_word)
+    # print(random_word)
+
+    #         print("This is not a valid category number: ")
+
+
   
     # print(picked)
-    choice = choice + 1
+    # choice = choice + 1
 # print("Choose Word Category 1, 2, 3, 4, 5 or 6")
 
 
