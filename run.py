@@ -49,20 +49,28 @@ print(word_categories)
 
 """ Player selects one of 6 word categories from list of strings pulled from
 Wordle-Hangman google sheet """
+
 choice = 0
-choice = int(input("Enter your choice = "))
-while (choice < 1 or choice >= 7):
-    print("This is not a valid category number")
+
+def choose_category():
     choice = int(input("Enter your choice = "))
-category = word_categories[choice - 1]
-picked = SHEET.worksheet("wordlist").find(category).value
-print("Your choice is: ",(picked))
-word_list = wks.col_values(choice)
-random_word = random.choice(word_list[1:])
-print(random_word)
+    while (choice < 1 or choice >= 7):
+        print("This is not a valid category number")
+        choice = int(input("Enter your choice = "))
+    category = word_categories[choice - 1]
+    picked = SHEET.worksheet("wordlist").find(category).value
+    print("Your choice is: ",(picked))
+    word_list = wks.col_values(choice)
+    random_word = random.choice(word_list[1:])
+    return (random_word)
+
+
+random_word = choose_category()
+
 print('The word has' , len(random_word), 'letters')
 
 correct = ['_'] * len(random_word)
+
 incorrect = []
 
 def update():
@@ -110,13 +118,27 @@ def new_game_exit():
                 print("You have already guessed that")
             print(incorrect)
             if len(incorrect) > 4:
-                print("You lose")
+                print("You lose!")
                 print("The word was" , random_word)
-                print("Press Y - to play a new Game. Press N - to exit")
+
+                playagain = 'yes'
+                while playagain == 'yes': 
+                    print('Do you want to play again? (yes or no)')
+                    playagain = raw_input()
+                    choose_category()
+
+
                 break
+
         if '_' not in correct:
             print("You win")
-            print("Press Y - to play a new Game. Press N - to exit")
+
+            playagain = 'yes'
+            while playagain == 'yes': 
+                print('Do you want to play again? (yes or no)')
+                playagain = raw_input()
+                choose_category()
+           
             break
 
 new_game_exit()
