@@ -91,26 +91,32 @@ update()
 
 bodyParts(len(incorrect))
 
-# To Do - function asking player if they wish to play a new game or exit game.
+# Function to enable player the option of exiting the game or playing a new game
 
 def new_game_exit():
+    playagain = 'yes'
+    while playagain == 'yes':
+        playagain = input("Do you want to play again? (Y or N)")
+        choose_category()
 
-    while True: 
 
-        print('############################################')
-        guess = input("Guess one letter: ")[0]
 
-        if guess.isnumeric():
+while True: 
+
+    print('############################################')
+    guess = input("Guess one letter: ")[0]
+
+    if guess.isnumeric():
             print("Enter a letter not a number: ")
             continue
-        if guess in random_word:
+    if guess in random_word:
             index = 0
             for x in random_word:
                 if x == guess:
                     correct[index] = guess
                 index +=1
             update()
-        else:
+    else:
             if guess not in incorrect:
                 incorrect.append(guess)
                 bodyParts(len(incorrect))
@@ -120,26 +126,15 @@ def new_game_exit():
             if len(incorrect) > 4:
                 print("You lose!")
                 print("The word was" , random_word)
-
-                playagain = 'yes'
-                while playagain == 'yes': 
-                    print('Do you want to play again? (yes or no)')
-                    playagain = raw_input()
-                    choose_category()
-
+                
+                new_game_exit()
 
                 break
 
-        if '_' not in correct:
+    if '_' not in correct:
             print("You win")
 
-            playagain = 'yes'
-            while playagain == 'yes': 
-                print('Do you want to play again? (yes or no)')
-                playagain = raw_input()
-                choose_category()
-           
+            new_game_exit()
             break
 
-new_game_exit()
 
