@@ -91,13 +91,15 @@ update()
 
 bodyParts(len(incorrect))
 
+# I sourced some code for this function from stackoverflow
 # Function to enable player the option of exiting the game or playing a new game
-
 def new_game_exit():
-    playagain = 'yes'
-    while playagain == 'yes':
-        playagain = input("Do you want to play again? (Y or N)")
+    playagain = 'y'
+    while playagain == 'y':
+        print('Do you want to play again? (Y or N: )')
+        playagain = input()
         choose_category()
+        print("Goodbye!")
 
 
 
@@ -126,15 +128,15 @@ while True:
             if len(incorrect) > 4:
                 print("You lose!")
                 print("The word was" , random_word)
-                
+            
                 new_game_exit()
 
-                break
+           
 
     if '_' not in correct:
             print("You win")
-
+            
             new_game_exit()
-            break
+          
 
 
