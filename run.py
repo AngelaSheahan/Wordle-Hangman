@@ -19,38 +19,31 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 
+
+
 # Wordle-Hangman game introduction
-game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
+def intro_rules:
+    game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
     letters in length. You, the player, selects a Word Category. The game then\
     randomly selects a word from your chosen category. You then guess what this \
-    letter is; 1 letter at a time. Good Luck!" 
-
-print(game_intro)  
-
-# Display game rules
-game_rules = " 1. Select one of 6 categories.\
+    letter is; 1 letter at a time. Good Luck!"
+    game_rules = " 1. Select one of 6 categories.\
     2. The game will randomly generate a word from your choosen category.\
     3. Enter one letter at a time to try to guess this word.\
     4. You have 4 attempts."\
-
-print(game_rules)
-
-print("Please see list of word categories below:")
-
-# All category headings appear in row 1 of spreadsheet
-wks = SHEET.worksheet("wordlist")
-words = wks.row_values(1)
-
-# Use list comprehension to convert list of lists from google sheet into list of strings"""
-word_categories = [''.join(ele) for ele in words]
-
-print(word_categories)
+    print(into_rules)
 
 
-""" Player selects one of 6 word categories from list of strings pulled from
-Wordle-Hangman google sheet """
+# Player selects one of 6 word categories from list of strings pulled from Wordle-Hangman google sheet """
+def categories():
+    print("Please see list of word categories below:")
+    # All category headings appear in row 1 of spreadsheet
+    wks = SHEET.worksheet("wordlist")
+    words = wks.row_values(1)
+    # Use list comprehension to convert list of lists from google sheet into list of strings"""
+    word_categories = [''.join(ele) for ele in words]
+    print(word_categories)
 
-choice = 0
 
 def choose_category():
     choice = int(input("Enter your choice = "))
@@ -64,49 +57,43 @@ def choose_category():
     random_word = random.choice(word_list[1:])
     return (random_word)
 
-
-random_word = choose_category()
-
-print('The word has' , len(random_word), 'letters')
-
-correct = ['_'] * len(random_word)
-
-incorrect = []
-
+# Update correct array with correct answers
 def update():
-  
     for x in correct:
         print(x, end=' ')
     print()
 
-# def wait():
-#     for i in range(5):
-#         print('.', end ="")
-#         sleep(.5)
-#     print()
-# wait()
+
+def wait():
+    for i in range(5):
+        print('.', end ="")
+        sleep(.5)
+    print()
 
 
-update()
-
-bodyParts(len(incorrect))
-
-# I sourced some code for this function from stackoverflow
 # Function to enable player the option of exiting the game or playing a new game
 def new_game_exit():
-    playagain = 'y'
-    while playagain == 'y':
-        print('Do you want to play again? (Y or N: )')
-        playagain = input()
-        choose_category()
+    playagain = str(input("Do you want to play again? [y] / [n]: "))
+    if playagain == 'y':
+        initialise_game()
+       
+  
+    else:
         print("Goodbye!")
 
 
+# Prepare correct and incorrect variables
+def initialise_game():
+    random_word = choose_category()
+    print('The word has' , len(random_word), 'letters')
+    correct = ['_'] * len(random_word)
+    incorrect = []
 
-while True: 
-
-    print('############################################')
-    guess = input("Guess one letter: ")[0]
+def play_game():
+    while True: 
+        
+        print('############################################')
+        guess = input("Guess one letter: ")[0]
 
     if guess.isnumeric():
             print("Enter a letter not a number: ")
@@ -137,6 +124,15 @@ while True:
             print("You win")
             
             new_game_exit()
-          
 
+
+
+# Funtion Calls          
+initialise_game()
+
+wait()
+
+update()
+
+bodyParts(len(incorrect))
 
