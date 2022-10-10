@@ -83,7 +83,7 @@ def select_random_word():
     print('The word has' , len(random_word), 'letters')
 
 
-# Update correct array with correct answers
+# Update correct list with correct answers
 def update():
     for x in correct:
         print(x, end=' ')
@@ -97,8 +97,11 @@ def wait():
     print()
 
 
-# Prepare correct and incorrect variables
+
 def initialise_game():
+    """
+   When player chooses to play again, the correct and incorrect lists are 
+    """
     global correct
     global incorrect
     information()
@@ -109,6 +112,19 @@ def initialise_game():
 
 
 def play_game():
+    """
+    Run a while loop to collect an input(a guess) from the user via the terminal,
+    which cannot be a number. All correct letter guesses will fill the appropriate
+    underscore slot in the 'correct' list; incorrect letter guesses are be added 
+    to the 'incorrect' list and also displayed on screen. When the player makes
+    either 1, 2, 3, or 4 incorrect guesses, the bodyParts function is called (which is stored
+    in another file called hangman_parts.py), displaying either the head, body, arms, and legs! 
+    The loop will repeatedly request data, until all the underscores are replaced 
+    by words (i.e. all the correct letters have been guessed), or the incorrect list is > 4.
+    (as all random words are 5 letters in length)
+    Run a second While loop in the event that the player wishes to play again. The initialise_game()
+    function is called to clear the variable contents.
+    """
     while True:
         
         print('############################################')
