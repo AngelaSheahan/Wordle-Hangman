@@ -8,13 +8,13 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 wks = SHEET.worksheet("wordlist")
-correct = [] 
+correct = []
 incorrect = []
 word_categories = []
 choice = 0
@@ -40,9 +40,7 @@ def information():
     print(game_rules)
 
 
-
 def load_categories():
-
     """
     The player selects one of 6 word categories from the list of strings (stored in 
     the variable, words) pulled from Wordle-Hangman google sheet. This list consists 
@@ -71,9 +69,11 @@ def choose_category():
     while (choice < 1 or choice >= 7):
         print("This is not a valid category number")
         choice = int(input("Enter your choice = "))
+        if type(choice) != int:
+            print("This is not a category number")
     category = word_categories[choice - 1]
     picked = wks.find(category).value
-    print("Your choice is: ",(picked))
+    print("Your choice is: ", (picked))
 
 
 def select_random_word():
@@ -85,7 +85,7 @@ def select_random_word():
     global random_word
     word_list = wks.col_values(choice)
     random_word = random.choice(word_list[1:])
-    print('The word has' , len(random_word), 'letters')
+    print('The word has', len(random_word), 'letters')
 
 
 # Update correct list with correct answers
@@ -108,10 +108,9 @@ def wait():
     """
 
     for i in range(5):
-        print('.', end= " ")
+        print('.', end=" ")
         sleep(.5)
     print()
-
 
 
 def initialise_game():
@@ -143,10 +142,10 @@ def play_game():
     function is called to clear the variable contents.
     """
     while True:
-        
+
         print('############################################')
         guess = input("Guess one letter: ")[0]
-        
+
         if guess.isnumeric():
             print("Enter a letter not a number: ")
             continue
@@ -158,7 +157,7 @@ def play_game():
                     correct[index] = guess
                 index += 1
             update()
-            
+
         else:
             if guess not in incorrect:
                 incorrect.append(guess)
@@ -168,18 +167,22 @@ def play_game():
             print(incorrect)
             if len(incorrect) > 4:
                 print("You lose!")
-                print("The word was" , random_word)
-                break                
+                print("The word was", random_word)
+                break
         if '_' not in correct:
             print("You win")
             break
 
 
-load_categories()
-while True:
-    initialise_game()
-    play_game()
-    replay = str(input("Do you want to play again? [y] / [n]: "))
-    if replay == 'n':
-        print("Goodbye!")
-        break
+def main():
+    load_categories()
+    while True:
+        initialise_game()
+        play_game()
+        replay = str(input("Do you want to play again? [y] / [n]: "))
+        if replay == 'n':
+            print("Goodbye!")
+            break
+
+
+main()
