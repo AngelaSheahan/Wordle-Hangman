@@ -14,7 +14,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
 wks = SHEET.worksheet("wordlist")
-correct = []
+correct = [] 
 incorrect = []
 word_categories = []
 choice = 0
@@ -35,8 +35,16 @@ def information():
     print(game_rules)
 
 
-# Player selects one of 6 word categories from list of strings pulled from Wordle-Hangman google sheet """
+
 def load_categories():
+
+    """
+    The player selects one of 6 word categories from the list of strings (stored in 
+    the variable, words) pulled from Wordle-Hangman google sheet. This list consists 
+    of the values in row 1 (i.e. the column headings). The Function load_categories 
+    pulls the list of categories from the spreadsheet, wordlist. This spreadsheet values
+    are assigned to the global variable, wks.
+    """
     global word_categories
     # All category headings appear in row 1 of spreadsheet
     words = wks.row_values(1)
@@ -45,6 +53,12 @@ def load_categories():
 
 
 def choose_category():
+    """
+    The list of categories is printed to the screen. The player enters their category 
+    choice (from 1 to 6). This category choice is stored in the variable picked. Data 
+    Validation prevents the player from entering a category below 1 or above 6 or from
+    entering a letter instead of a number.
+    """
     global choice
     print("Please see list of word categories below:")
     print(word_categories)
@@ -58,6 +72,11 @@ def choose_category():
 
 
 def select_random_word():
+    """ 
+    The computer randomly selects a word from the category selected by the player.
+    This word is stored in the variable, random_word. The word is not displayed to 
+    the screen but is represented on the screen in the form of 5 underscores.
+    """
     global random_word
     word_list = wks.col_values(choice)
     random_word = random.choice(word_list[1:])
@@ -73,7 +92,7 @@ def update():
 
 def wait():
     for i in range(5):
-        print('.', end ="")
+        print('.', end= " ")
         sleep(.5)
     print()
 
@@ -88,8 +107,9 @@ def initialise_game():
     correct = ['_'] * len(random_word)
     incorrect = []
 
+
 def play_game():
-    while True: 
+    while True:
         
         print('############################################')
         guess = input("Guess one letter: ")[0]
@@ -116,8 +136,7 @@ def play_game():
             if len(incorrect) > 4:
                 print("You lose!")
                 print("The word was" , random_word)
-                break
-                
+                break                
         if '_' not in correct:
             print("You win")
             break
