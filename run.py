@@ -21,8 +21,13 @@ choice = 0
 random_word = ""
 
 
-# Wordle-Hangman game introduction
 def information():
+    """
+    This game is called, Wordle-Hangman, combining the New York Times hugely successful,
+    daily 5 letter guessing game, Wordle, and the traditional game, Hangman.
+    When this function is called, it displays a game introduction and the game rules to
+    the screen
+    """
     game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
     letters in length. You, the player, selects a Word Category. The game then\
     randomly selects a word from your chosen category. You then guess what this \
@@ -85,12 +90,23 @@ def select_random_word():
 
 # Update correct list with correct answers
 def update():
+    """
+    Add correct guesses to the correct list. The end=' ' is added here to ensure that each
+    correct letter is added beside each other in list, not on separate lines.
+    """
     for x in correct:
         print(x, end=' ')
     print()
 
 
 def wait():
+    """
+    Python time sleep() function suspends execution for 5 seconds. This I use to
+    build up suspension in the game after a player makes a guess. There is a 5 second
+    delay before the result (i.e. is the players guess correct or incorrect?) is displayed.
+
+    """
+
     for i in range(5):
         print('.', end= " ")
         sleep(.5)
@@ -100,7 +116,8 @@ def wait():
 
 def initialise_game():
     """
-   When player chooses to play again, the correct and incorrect lists are 
+   When player chooses to play again, the correct and incorrect lists are cleared out.
+   The information(), choose_category(), and select_random_word() funcions are called.
     """
     global correct
     global incorrect
