@@ -18,9 +18,8 @@ class Dictionary:
         self.wks = SHEET.worksheet("wordlist")
         self.word_categories = []
         self.choice = 0
-        self.__load_categories()
 
-    def __load_categories(self):
+    def load(self):
         """
         The player selects one of 6 word categories from the list of strings (stored in 
         the variable, words) pulled from Wordle-Hangman google sheet. This list consists 
