@@ -28,17 +28,17 @@ def information():
     When this function is called, it displays a game introduction and the game rules to
     the screen
     """
-    game_intro = "Welcome to Wordle-Hangman! As the name implies, all words are of 5\
-    letters in length. You, the player, selects a Word Category. The game then\
-    randomly selects a word from your chosen category. You then guess what this \
-    letter is; 1 letter at a time. Good Luck!"
-    game_rules = " 1. Select one of 6 categories.\
-    2. The game will randomly generate a word from your choosen category.\
-    3. Enter one letter at a time to try to guess this word.\
-    4. You have 4 attempts."
+    game_intro = "Welcome to WORDLE HANGMAN! This is a 5 letter guessing game.\nGOOD LUCK!"
+    game_rules = "1. Select one of 6 categories.\n2. The game will randomly generate a word from your choosen category.\n3. Enter one letter at a time to try to guess this word.\n4. You have 4 attempts.\n"
+    print("---------------------------------------------------------------")
     print(game_intro)
     print(game_rules)
-
+    print("----------------------------------------------------------------")
+    global player_name
+    player_name = input("Please enter your name:  \n")
+    print("Welcome " + player_name)
+    print("-----------------------------------------------------------------")
+ 
 
 def load_categories():
     """
@@ -67,14 +67,13 @@ def choose_category():
     print(word_categories)
     choice = int(input("Enter your choice = \n"))
     while (choice < 1 or choice >= 7):
-        print("This is not a valid category number")
         choice = int(input("Enter your choice = \n "))
-        if type(choice) != int:
-            print("This is not a category number")
+        print("This is not a valid category number")  
     category = word_categories[choice - 1]
     picked = wks.find(category).value
     print("Your choice is: ", (picked))
 
+# or type(choice) != int:
 
 def select_random_word():
     """ 
@@ -125,6 +124,7 @@ def initialise_game():
     select_random_word()
     correct = ['_'] * len(random_word)
     incorrect = []
+    player_name = ""
 
 
 def play_game():
@@ -141,9 +141,10 @@ def play_game():
     Run a second While loop in the event that the player wishes to play again. The initialise_game()
     function is called to clear the variable contents.
     """
+
     while True:
 
-        print('############################################')
+        print("-----------------------------------------------------------------")
         guess = input("Guess one letter: \n")[0]
 
         if guess.isnumeric():
@@ -166,22 +167,21 @@ def play_game():
                 print("You have already guessed that")
             print(incorrect)
             if len(incorrect) > 4:
-                print("You lose!")
+                print(f"You lose {player_name}!")
                 print("The word was", random_word)
                 break
         if '_' not in correct:
-            print("You win")
+            print(f"You win {player_name}")
             break
-
 
 def main():
     load_categories()
     while True:
         initialise_game()
         play_game()
-        replay = str(input("Do you want to play again? [y] / [n]: \n"))
+        replay = (input(f"Do you want to play again {player_name}? [y] / [n]: \n"))
         if replay == 'n':
-            print("Goodbye!")
+            print(f"Goodbye {player_name!")
             break
 
 
