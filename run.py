@@ -65,10 +65,10 @@ def choose_category():
     global choice
     print("Please see list of word categories below:")
     print(word_categories)
-    choice = int(input("Enter your choice = "))
+    choice = int(input("Enter your choice = \n"))
     while (choice < 1 or choice >= 7):
         print("This is not a valid category number")
-        choice = int(input("Enter your choice = "))
+        choice = int(input("Enter your choice = \n "))
         if type(choice) != int:
             print("This is not a category number")
     category = word_categories[choice - 1]
@@ -144,7 +144,7 @@ def play_game():
     while True:
 
         print('############################################')
-        guess = input("Guess one letter: ")[0]
+        guess = input("Guess one letter: \n")[0]
 
         if guess.isnumeric():
             print("Enter a letter not a number: ")
@@ -179,7 +179,7 @@ def main():
     while True:
         initialise_game()
         play_game()
-        replay = str(input("Do you want to play again? [y] / [n]: "))
+        replay = str(input("Do you want to play again? [y] / [n]: \n"))
         if replay == 'n':
             print("Goodbye!")
             break
