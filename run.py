@@ -66,13 +66,16 @@ def choose_category():
     print("Please see list of word categories below:")
     print(word_categories)
     while True:
-         choice = int(input("Enter your choice = \n"))
-         if (choice < 1) or (choice >= 7):
+        try:
+            choice = int(input("Enter your choice = \n"))
+        except ValueError:
+            print("This is not a valid number. Please try again")
+            continue
+        if (choice < 1) or (choice >= 7):
             print("This is not a valid category number. Please try again")
-            try:
-                val = int(choice)
-            except ValueError:
-                print("This is not a number!")
+        else:
+            break
+
     category = word_categories[choice - 1]
     picked = wks.find(category).value
     print("Your choice is: ", (picked))
@@ -119,17 +122,22 @@ def wait():
 def initialise_game():
     """
    When player chooses to play again, the correct and incorrect lists are cleared out.
-   The information(), choose_category(), and select_random_word() funcions are called.
+   The choose_category(), and select_random_word() funcions are called.
     """
     global correct
     global incorrect
-    information()
     choose_category()
     select_random_word()
     correct = ['_'] * len(random_word)
     incorrect = []
     player_name = ""
 
+# class play_game:
+#     def___init__(self, guess, random_word, correct, incorrect)
+#         self.guess = guess
+#         self.random_word = random_word
+#         self.correct = []
+#         self.incorrect = []
 
 
 def play_game():
@@ -180,6 +188,7 @@ def play_game():
             break
 
 def main():
+    information()
     load_categories()
     while True:
         initialise_game()
