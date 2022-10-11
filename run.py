@@ -65,10 +65,14 @@ def choose_category():
     global choice
     print("Please see list of word categories below:")
     print(word_categories)
-    choice = int(input("Enter your choice = \n"))
-    while (choice < 1 or choice >= 7):
-        choice = int(input("Enter your choice = \n "))
-        print("This is not a valid category number")  
+    while True:
+         choice = int(input("Enter your choice = \n"))
+         if (choice < 1) or (choice >= 7):
+            print("This is not a valid category number. Please try again")
+            try:
+                val = int(choice)
+            except ValueError:
+                print("This is not a number!")
     category = word_categories[choice - 1]
     picked = wks.find(category).value
     print("Your choice is: ", (picked))
@@ -127,6 +131,7 @@ def initialise_game():
     player_name = ""
 
 
+
 def play_game():
     """
     Run a while loop to collect an input(a guess) from the user via the terminal,
@@ -181,7 +186,7 @@ def main():
         play_game()
         replay = (input(f"Do you want to play again {player_name}? [y] / [n]: \n"))
         if replay == 'n':
-            print(f"Goodbye {player_name!")
+            print(f"Goodbye {player_name}!")
             break
 
 
