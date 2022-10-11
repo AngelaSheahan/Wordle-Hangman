@@ -1,23 +1,9 @@
-import gspread
-import random
 from hangman_parts import bodyParts
 from time import sleep
-from google.oauth2.service_account import Credentials
+from dictionary import Dictionary
 
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-]
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('Wordle-Hangman')
-wks = SHEET.worksheet("wordlist")
 correct = []
 incorrect = []
-word_categories = []
-choice = 0
 random_word = ""
 
 
@@ -38,60 +24,6 @@ def information():
     player_name = input("Please enter your name:  \n")
     print("Welcome " + player_name)
     print("-----------------------------------------------------------------")
- 
-
-def load_categories():
-    """
-    The player selects one of 6 word categories from the list of strings (stored in 
-    the variable, words) pulled from Wordle-Hangman google sheet. This list consists 
-    of the values in row 1 (i.e. the column headings). The Function load_categories 
-    pulls the list of categories from the spreadsheet, wordlist. This spreadsheet values
-    are assigned to the global variable, wks.
-    """
-    global word_categories
-    # All category headings appear in row 1 of spreadsheet
-    words = wks.row_values(1)
-    # Use list comprehension to convert list of lists from google sheet into list of strings"""
-    word_categories = [''.join(ele) for ele in words]
-
-
-def choose_category():
-    """
-    The list of categories is printed to the screen. The player enters their category 
-    choice (from 1 to 6). This category choice is stored in the variable picked. Data 
-    Validation prevents the player from entering a category below 1 or above 6 or from
-    entering a letter instead of a number.
-    """
-    global choice
-    print("Please see list of word categories below:")
-    print(word_categories)
-    while True:
-        try:
-            choice = int(input("Enter your choice = \n"))
-        except ValueError:
-            print("This is not a valid number. Please try again")
-            continue
-        if (choice < 1) or (choice >= 7):
-            print("This is not a valid category number. Please try again")
-        else:
-            break
-
-    category = word_categories[choice - 1]
-    picked = wks.find(category).value
-    print("Your choice is: ", (picked))
-
-# or type(choice) != int:
-
-def select_random_word():
-    """ 
-    The computer randomly selects a word from the category selected by the player.
-    This word is stored in the variable, random_word. The word is not displayed to 
-    the screen but is represented on the screen in the form of 5 underscores.
-    """
-    global random_word
-    word_list = wks.col_values(choice)
-    random_word = random.choice(word_list[1:])
-    print('The word has', len(random_word), 'letters')
 
 
 # Update correct list with correct answers
@@ -126,18 +58,9 @@ def initialise_game():
     """
     global correct
     global incorrect
-    choose_category()
-    select_random_word()
     correct = ['_'] * len(random_word)
     incorrect = []
     player_name = ""
-
-# class play_game:
-#     def___init__(self, guess, random_word, correct, incorrect)
-#         self.guess = guess
-#         self.random_word = random_word
-#         self.correct = []
-#         self.incorrect = []
 
 
 def play_game():
@@ -189,8 +112,10 @@ def play_game():
 
 def main():
     information()
-    load_categories()
+    myDictionary = Dictionary()
     while True:
+        global random_word
+        random_word = myDictionary.select_random_word()
         initialise_game()
         play_game()
         replay = (input(f"Do you want to play again {player_name}? [y] / [n]: \n"))
@@ -200,3 +125,4 @@ def main():
 
 
 main()
+
