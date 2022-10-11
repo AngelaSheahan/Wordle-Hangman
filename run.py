@@ -1,4 +1,4 @@
-from hangman_parts import bodyParts
+
 from time import sleep
 from dictionary import Dictionary
 
@@ -63,52 +63,7 @@ def initialise_game():
     player_name = ""
 
 
-def play_game():
-    """
-    Run a while loop to collect an input(a guess) from the user via the terminal,
-    which cannot be a number. All correct letter guesses will fill the appropriate
-    underscore slot in the 'correct' list; incorrect letter guesses are be added 
-    to the 'incorrect' list and also displayed on screen. When the player makes
-    either 1, 2, 3, or 4 incorrect guesses, the bodyParts function is called (which is stored
-    in another file called hangman_parts.py), displaying either the head, body, arms, and legs! 
-    The loop will repeatedly request data, until all the underscores are replaced 
-    by words (i.e. all the correct letters have been guessed), or the incorrect list is > 4.
-    (as all random words are 5 letters in length)
-    Run a second While loop in the event that the player wishes to play again. The initialise_game()
-    function is called to clear the variable contents.
-    """
 
-    while True:
-
-        print("-----------------------------------------------------------------")
-        guess = input("Guess one letter: \n")[0]
-
-        if guess.isnumeric():
-            print("Enter a letter not a number: ")
-            continue
-
-        if guess in random_word:
-            index = 0
-            for x in random_word:
-                if x == guess:
-                    correct[index] = guess
-                index += 1
-            update()
-
-        else:
-            if guess not in incorrect:
-                incorrect.append(guess)
-                bodyParts(len(incorrect))
-            else:
-                print("You have already guessed that")
-            print(incorrect)
-            if len(incorrect) > 4:
-                print(f"You lose {player_name}!")
-                print("The word was", random_word)
-                break
-        if '_' not in correct:
-            print(f"You win {player_name}")
-            break
 
 def main():
     information()
