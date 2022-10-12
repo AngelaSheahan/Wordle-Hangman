@@ -13,23 +13,77 @@ The player has 5 attempts to guess the word; one letter at a time.<br/> Like the
 ____
 ## Existing Features
 - Category Selection<br/>
-    - A player can choose the category of interest (from which the word to be guessed is sourced) by entering the associated number of that category e.g. 1. Countries. . These categories are presented to the player in the form of a list on the terminal. The categories are pulled from a google sheet.<br/>
+    - A player can choose the category of interest (from which the word to be guessed is sourced) by entering the associated number of that category e.g. 1. Countries. . These categories are presented to the player in the form of a list on the terminal. The categories are pulled from a google sheet.<br/> <br/>
+    ![category list](views/screenshots/category_list.jpg)<br/>
     
 - Random Word generation
     - A word is randomly 'pulled' from the player selected category from the google sheet(Wordle-Hangman) and presented to the player as a series of five underscores. This is the word the player has to guess.
-- Accepts player input, one letter at a time. 
+- Game accepts player input, one letter at a time.<br/> <br/>
+![player guess](views/screenshots/correct%20guesses.jpg)<br/>
 - Data validation on player category choice and on player guesses . 
-    - Player cannot enter a category number < 1 or >=7, as these are not valid category numbers. There are presently word for only 6 categories in my google sheet. 
-    - Player cannot enter a number instead of a letter for their guess.
-    - Player may enter a number of letters in each guess experience, but only the first letter of the string entered is accepted as the valid guess letter for that guess.
-    - Player will be allerted if they enter a letter already entered in a previous guess.  
+    - Player cannot enter a category number < 1 or >=7, as these are not valid category numbers. There are presently word for only 6 categories in my google sheet. In addition a player cannot enter a letter in error instead of a number.<br/><br/>
+    ![category number error](views/screenshots/cat_number.jpg) <br/>
+    ![category letter error](views/screenshots/cat_letter.jpg) <br/><br/>
+    - Player cannot enter a number instead of a letter for their guess.<br/> <br/>
+    ![guess number error](views/screenshots/guess_number.jpg)
+    >
+    - Player may enter a number of letters in each guess experience, but only the first letter of the string entered is accepted as the valid guess letter for that guess.<br/>
+    ![multi-letters entered in one guess](views/screenshots/more_than_one_letter.jpg) <br/>
+    - Player will be allerted if they have entered an incorrect letter already entered in a previous guess. <br/> 
+    ![letter already guessed](views/screenshots/already_guessed.jpg)<br/>
  
-- Guess Tracking in the form of a list of guesses is displayed on screen.
-- Player guess tracking.
-- Graphical representation of gallows with elements added each time player guesses an incorrect word. (stored in the hangman_parts.py)
+- Guess Tracking in the form of a list of incorrect guesses displayed on screen and the 
+correct words entered into the appropriate underscore.<br/>
+![all guesses tracked & displayed on screen](views/screenshots/guess_tracking.jpg)<br/>
+- Graphical representation of gallows with elements added each time player guesses an incorrect word. (stored in the hangman_parts.py)<br/>
+![1 incorrect guess](views/screenshots/1_incorrect_guess.jpg)<br/>
+![2 incorrect guesses](views/screenshots/2_incorrect_guesses.jpg)<br/>
+![3 incorrect guesses](views/screenshots/3_incorrect_guesses.jpg)<br/>
+![4 incorrect guesses](views/screenshots/4_incorrect%20guesses.jpg)<br><br/>
 - Data maintained in class instances (There are 2 classes in my code; class Hangman in hangman.py and class Dictionary in dictionary.py)
-- A player again Y/N feature.
-- Player name is followed through the game to personalise the game experience.
+- A play again Y/N feature.<br/>
+![play again feature](views/screenshots/win.jpg)<br/>
+- Once the Players name is captured, it is followed through the game to personalise the gaming experience (see image above). In addition, if the player chooses to play another game, their name is carried through also; hence they do not have to re-enter their name.
+
+# Future Features
+
+# Data Model
+
+# Testing
+
+Manual:
+- PEP8
+- incorrect inputs
+- local terminal & Heroku terminal
+
+# Bugs
+## Solved
+- indexing in list of categories
+int(input) accepted letters - see base 10 error
+
+# Remaining Bugs
+
+# Validator Testing
+
+# Deployment
+### The project was deploying using Code Institutes mock terminal for Heroku.
+- The steps for deployment:
+    
+
+# Credits
+https://www.geeksforgeeks.org/python-convert-list-of-lists-to-list-of-strings/
+
+hangman videos that helped me along
+
+1. https://www.youtube.com/watch?v=Ff--def_1q0
+2. https://www.youtube.com/watch?v=7sVnul-StrU
+
+data validation:
+
+https://www.educba.com/python-validation/
+
+
+
 
 
     
