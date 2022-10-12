@@ -14,6 +14,7 @@ ____
 ## Existing Features
 - Category Selection<br/>
     - A player can choose the category of interest (from which the word to be guessed is sourced) by entering the associated number of that category e.g. 1. Countries. . These categories are presented to the player in the form of a list on the terminal. The categories are pulled from a google sheet.<br/>
+    
 - Random Word generation
     - A word is randomly 'pulled' from the player selected category from the google sheet(Wordle-Hangman) and presented to the player as a series of five underscores. This is the word the player has to guess.
 - Accepts player input, one letter at a time. 
