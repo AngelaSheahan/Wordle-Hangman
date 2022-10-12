@@ -4,6 +4,7 @@ from time import sleep
 
 class Hangman:
 
+
     # Update correct list with correct answers
     def __update(self):
         """
@@ -30,39 +31,39 @@ class Hangman:
 
     def information(self):
         """
-        This game is called, Wordle-Hangman, combining the New York Times hugely successful,
-        daily 5 letter guessing game, Wordle, and the traditional game, Hangman.
-        When this function is called, it displays a game introduction and the game rules to
-        the screen
+        This game is called, Wordle-Hangman, combining the New\n
+        York Times hugely successful, daily 5 letter guessing\n
+        game, Wordle, and the traditional game, Hangman.\n
+        When this function is called, it displays a game \n
+        introduction and the game rules to the screen
         """
         game_intro = "Welcome to WORDLE HANGMAN! This is a 5 letter guessing game.\nGOOD LUCK!"
         game_rules = "1. Select one of 6 categories.\n2. The game will randomly generate a word from your choosen category.\n3. Enter one letter at a time to try to guess this word.\n4. You have 4 attempts.\n"
-        print("---------------------------------------------------------------")
+        print("-------------------------------------------------------")
         print(game_intro)
         print(game_rules)
-        print("----------------------------------------------------------------")
+        print("-------------------------------------------------------")
 
 
     def play_game(self, random_word, player_name):
         """
-        Run a while loop to collect an input(a guess) from the user via the terminal,
-        which cannot be a number. All correct letter guesses will fill the appropriate
-        underscore slot in the 'correct' list; incorrect letter guesses are be added 
-        to the 'incorrect' list and also displayed on screen. When the player makes
-        either 1, 2, 3, or 4 incorrect guesses, the bodyParts function is called (which is stored
-        in another file called hangman_parts.py), displaying either the head, body, arms, and legs! 
-        The loop will repeatedly request data, until all the underscores are replaced 
-        by words (i.e. all the correct letters have been guessed), or the incorrect list is > 4.
-        (as all random words are 5 letters in length)
-        Run a second While loop in the event that the player wishes to play again. The initialise_game()
-        function is called to clear the variable contents.
+        Run a while loop to collect an input(a guess) from the user via the\n 
+        terminal. All correct letter guesses will fill the correct\n
+        letter underscore slot in the 'correct' list; incorrect\n
+        letter guesses are be added to the 'incorrect' list and\n 
+        also displayed on screen. When the player makes incorrect\n 
+        guesses, the bodyParts function is called (which is stored\n
+        in the hangman_parts.py). The loop will repeatedly request \n
+        data, until all the underscores are replaced by words (i.e.)\n
+        all the correct letters have been guessed), or the incorrect\n
+        list is > 4. Run a second While loop in the event that the\n
+        player wishes to play again. The initialise_game() function\n
+        is called to clear the variable contents.
         """
- 
         self.correct = ['_'] * len(random_word)
         incorrect = []
 
-        while True:
-            
+        while True:        
             print("-----------------------------------------------------------------")
             guess = input("Guess one letter: \n")[0]
 
@@ -92,3 +93,4 @@ class Hangman:
             if '_' not in self.correct:
                 print(f"You win {player_name}")
                 break
+            
