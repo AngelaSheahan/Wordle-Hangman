@@ -21,24 +21,26 @@ class Dictionary:
 
     def load(self):
         """
-        The player selects one of 6 word categories from the list of strings (stored in 
-        the variable, words) pulled from Wordle-Hangman google sheet. This list consists 
-        of the values in row 1 (i.e. the column headings). The Function load_categories 
-        pulls the list of categories from the spreadsheet, wordlist. This spreadsheet values
-        are assigned to the global variable, wks.
+        The player selects one of 6 word categories from the list of strings\n
+        (stored in the variable, words) pulled from Wordle-Hangman google sheet.\n
+        This list consists of the values in row 1 (i.e. the column headings).\n
+        The Function load_categories pulls the list of categories from the\n
+        spreadsheet wordlist. This spreadsheet values are assigned to the global\n
+        variable, wks.
         """
         # All category headings appear in row 1 of spreadsheet
         words = self.wks.row_values(1)
-        # Use list comprehension to convert list of lists from google sheet into list of strings"""
+        """ Use list comprehension to convert list of lists from google sheet\n
+        into list of strings"""
         self.word_categories = [''.join(ele) for ele in words]
 
 
     def __choose_category(self):
         """
-        The list of categories is printed to the screen. The player enters their category 
-        choice (from 1 to 6). This category choice is stored in the variable picked. Data 
-        Validation prevents the player from entering a category below 1 or above 6 or from
-        entering a letter instead of a number.
+        The list of categories is printed to the screen. The player enters\n
+        their category choice (from 1 to 6). This category choice is stored\n
+        in the variable picked. Data Validation prevents the player from entering\n
+        a category below 1 or above 6 or from entering a letter instead of a number.
         """
         print("Please see list of word categories below:")
         print(self.word_categories)
@@ -60,9 +62,10 @@ class Dictionary:
 
     def select_random_word(self):
         """ 
-        The computer randomly selects a word from the category selected by the player.
-        This word is stored in the variable, random_word. The word is not displayed to 
-        the screen but is represented on the screen in the form of 5 underscores.
+        The computer randomly selects a word from the category selected by\n
+        the player. This word is stored in the variable, random_word. The word\n
+        is not displayed to the screen but is represented on the screen in the\n
+        form of 5 underscores.
         """
 
         self.__choose_category()
