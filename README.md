@@ -1,5 +1,4 @@
 # WORDLE HANGMAN
--------
 Wordle hangman is based on the traditional pen and paper game. You can read more about it on [Wikipedia](https://en.wikipedia.org/wiki/Hangman_(game)).  I have also encorporated the concept of the hugely popular 5 letter word guess game, Wordle. Hence, every word that the player has to guess is 5 letters in length.<br/><br/>
 The player enters their name. The player is then presented with a list of 6 word categories to choose from.<br/>The player chooses which category they wish to guess a word from.<br/>The word categories and their corresponding words are found in a google sheet (Wordle-Hangman).<br/>A word is picked by random from the players choosen category; this word is hidden from the player.<br/>
 The player has 5 attempts to guess the word; one letter at a time.<br/> Like the traditional hangman game, each time the player guesses an incorrect letter, an item is added to the graphical representation of the hanging gallows:
@@ -8,9 +7,15 @@ The player has 5 attempts to guess the word; one letter at a time.<br/> Like the
 - 3rd incorrect word - both arms.
 - 4th incorrect word - both legs.
 
+# Project Files
+- run.py
+- dictionary.py
+- hangman.py
+- hangman_parts.py
+- Wordle-Hangman google sheet
 
 # Features
-____
+
 ## Existing Features
 - Category Selection<br/>
     - A player can choose the category of interest (from which the word to be guessed is sourced) by entering the associated number of that category e.g. 1. Countries. . These categories are presented to the player in the form of a list on the terminal. The categories are pulled from a google sheet.<br/> <br/>
@@ -55,27 +60,31 @@ correct words entered into the appropriate underscore.<br/>
 # Data Model
 I decided to use a Dictionary class (in dictionary.py) and a Hangman class (in hangman.py) as my models. The game creates an instance of the Dictionary class whose purpose is to ultimately generate a random guess word from the players choosen category (sourced from the google sheet, Wordle-Hangman).<br/>
 - The Dictionary class stores the spreadsheet, the word_categories, the picked (category), and the random word.<br/>
-The Dictionary class also has methods such as the print method to print out the categories list, the __choose_category to enable the player to choose from the categories list, and the select_random_word method to randomly pick one word from the players choosen category as the game guess word.
+The Dictionary class also has methods such as the print method to print out the categories list, the __choose_category method to enable the player to choose from the categories list, and the select_random_word method to randomly pick one word from the players choosen category as the game guess word.
 - The Hangman class contains all the methods to actually play the game, such as the play_game(self, random_word, player_name) method.<br/>
 
 # Testing
-
-Manual:
-- PEP8
-- incorrect inputs
-- local terminal & Heroku terminal
+I have manually tested my project by doing the following:
+- Passed the code through a PEP8 linter and confirmed there are no problems.
+- Passed in incorrect inputs for the category (choosen by the player at the start of the game). I entered a category number of 0 and a category number of 8. I also entered a category number in the form of a letter e.g. r. On both occasions the error message, "This is not a valid number appeared".
+- Passed in incorrect inputs for the player guess (the guess must be one letter). I entered a number instead of a letter. The error message " Enter a letter not a number appeared". I entered a string of letters for another test, the game only accepted the first letter of this string as the guess letter.
+- Passed in the same letter as previously guessed; the following error message appeared, "You have already guessed that".
+- Tested in my local terminal & The Code Institutes Heroku terminal
 
 # Bugs
-## Solved
-- indexing in list of categories
-int(input) accepted letters - see base 10 error
+## Solved Bugs
+- When I picked the 6th category in my game, I got an error message, even though there are 6 categories in the categories list. This is because of the indexing in the list of categories i.e. [0 index, 1 index, 2 index, 3 index, 4 index, 5 index]. I fixed this by adding [choice -1] where necessary.
+- Numerous indentation errors causing chunks of code from not running at all.
+- I inadvertantly omitted the *continue* in my While loop in the  __choose_category method, causing an infinite loop!
 
-# Remaining Bugs
+## Remaining Bugs
+- No bugs remaining
 
-# Validator Testing
+## Validator Testing
+I added the PEP8 Validator to my gitpod workspace. Hence my PEP8 errors were highlighted in red. These errors only related to 'lines too long' and 'too many blank lines'. I have rectified all these errors.
 
 # Deployment
-### The project was deploying using Code Institutes mock terminal for Heroku.
+The project was deploying using Code Institutes mock terminal for Heroku.
 - The steps for deployment:
     
 
