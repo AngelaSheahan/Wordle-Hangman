@@ -86,19 +86,32 @@ I added the PEP8 Validator to my gitpod workspace. Hence my PEP8 errors were hig
 # Deployment
 The project was deploying using Code Institutes mock terminal for Heroku.
 - The steps for deployment:
+    - I created a Heroku app
+    - Set the buildpacks to Python and nodeJS in that order.
+    - Link the Heroku app to my GitHub repository.
+    - Click on Deploy
     
 
 # Credits
-https://www.geeksforgeeks.org/python-convert-list-of-lists-to-list-of-strings/
+Website I visited frequently:<br/>
 
-hangman videos that helped me along
+[w3schools](https://www.w3schools)
 
-1. https://www.youtube.com/watch?v=Ff--def_1q0
-2. https://www.youtube.com/watch?v=7sVnul-StrU
+[geeksforgeeks](https://www.geeksforgeeks.org/python-convert-list-of-lists-to-list-of-strings/)
 
-data validation:
+[Stackoverflow](https://stackoverflow.com/)
 
-https://www.educba.com/python-validation/
+[Data Validation](https://www.educba.com/python-validation/)
+
+<br/>
+Hangman videos that helped me alot along the way:<br/><br/>
+
+1. [Python Project Coding: Hangman Part 1](https://www.youtube.com/watch?v=Ff--def_1q0)
+
+2. [Python Project Coding: Hangman Part 2](https://www.youtube.com/watch?v=7sVnul-StrU)
+
+
+
 
 
 
